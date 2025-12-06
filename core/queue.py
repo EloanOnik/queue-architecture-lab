@@ -11,6 +11,7 @@ class Queue:
         self.repeat_count = 0
         self.last_time = datetime.min
         self.cooldown = 5
+        self.all_subscribers = []
 
     # добавление сообщения в очередь
     def enqueue(self, message):
