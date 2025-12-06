@@ -6,6 +6,10 @@ class Queue:
         self.priority_queue = []      # здесь будут храниться важные / исключения
         self.capacity = capacity       # максимальное количество сообщений
         self.subscribers = []          # список всех подписчиков (объекты Subscriber)
+        self.last_signature = None
+        self.repeat_count = 0
+        self.last_time = 0
+        self.cooldown = 5
 
     # добавление сообщения в очередь
     def enqueue(self, message):
