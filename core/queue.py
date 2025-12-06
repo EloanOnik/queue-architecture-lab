@@ -20,7 +20,7 @@ class Queue:
         # 4. уведомить всех подписчиков о новом сообщении (notify_subscriber)
         now = datetime.now()
         seconds_passed = (now - self.last_time).total_seconds()
-        if seconds_passed > self.cooldown:
+        if seconds_passed < self.cooldown:
             return
         if len(self.main_queue) >= self.capacity: 
             self.handle_overflow(batch_size = 10)
