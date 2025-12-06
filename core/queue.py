@@ -1,4 +1,5 @@
 from subscriber import Subscriber
+from datetime import datetime
 
 class Queue:
     def __init__(self, capacity=100):
@@ -8,7 +9,7 @@ class Queue:
         self.subscribers = []          # список всех подписчиков (объекты Subscriber)
         self.last_signature = None
         self.repeat_count = 0
-        self.last_time = 0
+        self.last_time = datetime.min
         self.cooldown = 5
 
     # добавление сообщения в очередь
@@ -17,10 +18,15 @@ class Queue:
         # 2. если переполнена — ничего не добавлять (или вызвать handle_overflow)
         # 3. если не переполнена — добавить сообщение в main_queue
         # 4. уведомить всех подписчиков о новом сообщении (notify_subscriber)
+        now = datetime.now()
+        seconds_passed = (now - self.last_time).total_seconds()
+        if seconds_passed > self.cooldown:
+            return
         if len(self.main_queue) >= self.capacity: 
             self.handle_overflow(batch_size = 10)
         self.main_queue.append(message)
         self.notify_subscriber(message)
+        self.last_time = now
 
 
     # получение сообщений конкретным подписчиком
