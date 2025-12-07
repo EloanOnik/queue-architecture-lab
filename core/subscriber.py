@@ -4,7 +4,6 @@ class Subscriber:
     def __init__(self, subscriber_id, handler, mode="new", last_n=None, batch_size=1, deliver_immediately=True):
         self.id = subscriber_id #id
         self.handler = handler #
-        self.mode = mode  # "all", "new", "lastN"
         self.last_n = last_n
         self.batch_size = batch_size #количество сообщений для выдачи
         self.deliver_immediately = deliver_immediately
