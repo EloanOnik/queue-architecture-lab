@@ -99,7 +99,9 @@ class Queue:
         while len(self.main_queue) > self.capacity:
             messages_to_delete = self.main_queue[:batch_size]
             for subscriber in self.subscribers:
+                #НЕ ЗАБЫТЬ ИСПРАВИТЬ ЛОГИКУ MODE
                 if subscriber.mode == "all" and subscriber.cursor < len(messages_to_delete):
                     subscriber.receive(messages_to_delete)
                     subscriber.cursor += len(messages_to_delete)
             self.main_queue = self.main_queue[batch_size:]
+

@@ -1,13 +1,13 @@
 from queue import Queue
 
 class Subscriber:
-    def __init__(self, subscriber_id, handler, mode="new", last_n=None, batch_size=1, deliver_immediately=True):
+    def __init__(self, subscriber_id, handler, auto_receive=False, durable=True, batch_size=1):
         self.id = subscriber_id #id
         self.handler = handler #
-        self.last_n = last_n
         self.batch_size = batch_size #количество сообщений для выдачи
-        self.deliver_immediately = deliver_immediately
         self.cursor = 0 #курсор 
+        self.auto_receive = auto_receive
+        self.durable = durable
 
 
     def receive(self, message):
